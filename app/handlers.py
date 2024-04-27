@@ -27,7 +27,7 @@ router = Router()
 async def cmd_start(message: Message):
     await message.answer(f'Привет, {message.from_user.first_name}.  Я - бот PetFinder.\nМоя цель - помогать людям искать потерянных питомцев.\nОсновной инструмент для поиска - *тематические чаты.*', parse_mode="Markdown")
     ans = 'Сейчас доступны следующие опции:\n\n'
-    with open('data//options.txt', encoding='utf8') as file:
+    with open('data/options.txt', encoding='utf8') as file:
         for i, option in enumerate(file.readlines(), start=1):
             ans += f'{i}) {option}\n'
     await message.answer(ans, reply_markup= kb.main_reply)
@@ -37,7 +37,7 @@ async def cmd_start(message: Message):
 @router.message(F.text == 'меню')
 async def menu(message: Message, state: FSMContext):
     ans = 'Сейчас доступны следующие опции:\n\n'
-    with open('data//options.txt', encoding='utf8') as file:
+    with open('data/options.txt', encoding='utf8') as file:
         for i, option in enumerate(file.readlines(), start=1):
             ans += f'{i}) {option}\n'
     await message.answer(ans, reply_markup= kb.main_reply)
@@ -60,7 +60,7 @@ async def shelter_search(message: Message, state: FSMContext):
 @router.message(Reg.distr_shelter)
 async def reg_shelter(message: Message, state: FSMContext):
     
-    with open('data//shelters.json', encoding='utf8') as shelters:
+    with open('data/shelters.json', encoding='utf8') as shelters:
         
         shelters_data = json.load(shelters)
         if message.text.strip().isupper():
@@ -108,7 +108,7 @@ async def distr_search(message: Message, state: FSMContext):
 @router.message(Reg.distr_chat)
 async def reg_distr(message: Message, state: FSMContext):
     
-    with open('data//district_chats.json', encoding='utf8') as dst:
+    with open('data/district_chats.json', encoding='utf8') as dst:
         
         dst_data = json.load(dst)
         if message.text.strip().isupper():
@@ -144,7 +144,7 @@ async def reg_distr(message: Message, state: FSMContext):
 
 @router.message(F.text == 'Поиск по цвету')
 async def color_search(message: Message, state: FSMContext):
-    with open('data//colors.json', encoding='utf8') as colors_file:
+    with open('data/colors.json', encoding='utf8') as colors_file:
         colors_data = json.load(colors_file)
         ans='Сейчас поддерживаются следующие варианты:\n'
         for i in colors_data.keys():
@@ -157,7 +157,7 @@ async def color_search(message: Message, state: FSMContext):
 @router.message(Reg.color)
 async def reg_color(message: Message, state: FSMContext):
     
-    with open('data//colors.json', encoding='utf8') as colors_file:
+    with open('data/colors.json', encoding='utf8') as colors_file:
         
         colors_data = json.load(colors_file)
         
@@ -190,7 +190,7 @@ async def reg_color(message: Message, state: FSMContext):
 
 @router.message(F.text == 'Поиск по породе')
 async def breed_search(message: Message, state: FSMContext):
-    with open('data//breeds.json', encoding='utf8') as breeds_file:
+    with open('data/breeds.json', encoding='utf8') as breeds_file:
         breeds_data = json.load(breeds_file)
         ans='Сейчас поддерживаются следующие варианты:\n'
         for i in breeds_data.keys():
@@ -202,7 +202,7 @@ async def breed_search(message: Message, state: FSMContext):
     
 @router.message(Reg.breed)
 async def reg_breed(message: Message, state: FSMContext):
-    with open('data//breeds.json', encoding='utf8') as breeds_file:
+    with open('data/breeds.json', encoding='utf8') as breeds_file:
         
         breeds_data = json.load(breeds_file)
         
@@ -237,7 +237,7 @@ async def reg_breed(message: Message, state: FSMContext):
 @router.message(F.text == 'Полезные ссылки')
 async def usf_links(message: Message, state: FSMContext):
     await message.answer('Вот полезные ссылки, которые могут вам помочь:')
-    with open('data//useful_links.json', encoding='utf8') as useful_links_file:
+    with open('data/useful_links.json', encoding='utf8') as useful_links_file:
         data = json.load(useful_links_file)
         for k, v in data.items():
             await message.answer(f'{k} {v}')
